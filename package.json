@@ -15,6 +15,7 @@
   "scripts": {
     "build": "webpack --mode=production --config webpack.config.server.js",
     "dev": "NODE_ENV=cloud nodemon",
+    "deploy": "npm run build && gcloud app deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -27,6 +28,9 @@
     "body-parser": "1.19.0",
     "cors": "2.8.5",
     "express": "4.17.1",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
     "mongoose": "5.10.13"
   },
   "devDependencies": {
@@ -41,6 +45,6 @@
     "webpack-cli": "3.3.11",
     "webpack-dev-middleware": "3.7.2",
     "webpack-hot-middleware": "2.25.0",
-    "webpack-node-externals": "1.7.2"
+    "webpack-node-externals": "^1.7.2"
   }
 }
