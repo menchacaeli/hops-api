@@ -1,14 +1,15 @@
 const db = require('../models');
 const User = db.user;
 const _ = require('lodash');
-
+const errHandler = require('../../helpers/dbErrorHandler');
+const { default: dbErrorHandler } = require('../../helpers/dbErrorHandler');
 exports.create = (req, res, next) => {
     const user = new User(req.body);
     user.save((err, result) => {
         if (err) {
             console.error("Error: Issue create new user")
             return res.status(404).json({
-                error: err
+                error: dbErrorHandler.getErrorMessage(err)
             })
         }
         res.status(200).json({
@@ -20,7 +21,7 @@ exports.list = (req, res) => {
     User.find((err, users) => {
         if (err) {
             return res.status(400).json({
-                error: err
+                error: dbErrorHandler.getErrorMessage(err)
             })
         }
         res.json(users);
@@ -52,7 +53,7 @@ exports.update = (req, res, next) => {
     user.save((err) => {
         if (err) {
             return res.status(400).json({
-                error: err
+                error: dbErrorHandler.getErrorMessage(err)
             })
         }
         user.hashed_password = undefined;
@@ -65,7 +66,7 @@ exports.remove = (req, res, next) => {
     user.remove((err, deletedUser) => {
         if (err) {
             return res.status(400).json({
-                error: err
+                error: dbErrorHandler.getErrorMessage(err)
             })
         }
     })
